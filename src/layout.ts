@@ -1,0 +1,35 @@
+const BASE_LAYOUT = {
+  START_ROW: 1,
+  START_COL: 1,
+};
+
+const ROWS = {
+  FIRST: BASE_LAYOUT.START_ROW,
+  SECOND: BASE_LAYOUT.START_ROW + 1,
+  THIRD: BASE_LAYOUT.START_ROW + 2,
+  FORTH: BASE_LAYOUT.START_ROW + 3,
+};
+
+const TASK_COLS = 5;
+
+export const LAYOUT = {
+  DETAILS: {
+    COL: BASE_LAYOUT.START_COL,
+    ROWS: {
+      TITLE: ROWS.FIRST,
+      COMPANY: ROWS.SECOND,
+      LEAD: ROWS.THIRD,
+      START_DATE: ROWS.SECOND,
+      END_DATE: ROWS.THIRD,
+      HEADER: ROWS.FORTH,
+    },
+  },
+  TIMELINE: {
+    COL: BASE_LAYOUT.START_COL + TASK_COLS,
+    ROWS: {
+      WEEK: ROWS.SECOND,
+      DATE: ROWS.THIRD,
+      DAY: ROWS.FORTH,
+    },
+  },
+} as const;
