@@ -3,7 +3,7 @@ import { parseTasks } from "../parse";
 import { Task } from "../types";
 
 import { setupHeader } from "./header";
-// import { buildTimeline } from "./timeline";
+import { buildTimeline } from "./timeline";
 // import { addRepoAndTaskRows, addLastRow } from "./tasks";
 // import { applyConditionalFormatting } from "./formatting";
 
@@ -19,7 +19,7 @@ export async function generateRoadmap(
   });
 
   setupHeader(worksheet, tasks);
-  //   const endTimeline = buildTimeline(worksheet, tasks);
+  const endTimeline = buildTimeline(worksheet, tasks);
   //   addRepoAndTaskRows(worksheet, tasks, endTimeline);
   //   addLastRow(worksheet, endTimeline);
   //   applyConditionalFormatting(worksheet, endTimeline);
