@@ -5,7 +5,7 @@ import { Task } from "../types";
 import { setupHeader } from "./header";
 import { buildTimeline } from "./timeline";
 import { addRepoAndTaskRows, addLastRow } from "./tasks";
-// import { applyConditionalFormatting } from "./formatting";
+import { applyConditionalFormatting } from "./formatting";
 
 export async function generateRoadmap(
   inputPath: string,
@@ -22,7 +22,7 @@ export async function generateRoadmap(
   const endTimeline = buildTimeline(worksheet, tasks);
   addRepoAndTaskRows(worksheet, tasks, endTimeline);
   addLastRow(worksheet, endTimeline);
-  //   applyConditionalFormatting(worksheet, endTimeline);
+  applyConditionalFormatting(worksheet, endTimeline);
 
   await workbook.xlsx.writeFile(outputPath);
 }
