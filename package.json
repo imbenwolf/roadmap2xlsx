@@ -4,9 +4,13 @@
   "description": "Creates a Gantt chart .xlsx from a Github project roadmap .tsv",
   "main": "src/main.ts",
   "scripts": {
-    "start": "pnpm ts-node src/cli.ts",
+    "dev": "pnpm ts-node src/cli.ts",
     "build": "pnpm tsc",
-    "prod": "node dist/main.js"
+    "start": "node dist/main.js",
+    "lint": "pnpm eslint",
+    "lint:fix": "pnpm eslint --fix",
+    "format": "pnpm prettier . --check",
+    "format:fix": "pnpm prettier . --write"
   },
   "keywords": [],
   "author": "",
@@ -17,8 +21,14 @@
     "exceljs": "^4.4.0"
   },
   "devDependencies": {
+    "@eslint/js": "^9.19.0",
     "@types/node": "^22.12.0",
+    "eslint": "^9.19.0",
+    "eslint-config-prettier": "^10.0.1",
+    "globals": "^15.14.0",
+    "prettier": "3.4.2",
     "ts-node": "^10.9.2",
-    "typescript": "^5.7.3"
+    "typescript": "^5.7.3",
+    "typescript-eslint": "^8.23.0"
   }
 }
