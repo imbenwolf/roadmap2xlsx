@@ -2,19 +2,28 @@
   "name": "roadmap2xlsx",
   "version": "1.0.0",
   "description": "Creates a Gantt chart .xlsx from a Github project roadmap .tsv",
-  "main": "src/main.ts",
+  "main": "src/cli.ts",
   "scripts": {
     "dev": "pnpm ts-node src/cli.ts",
     "build": "pnpm tsc",
-    "start": "node dist/main.js",
+    "start": "node dist/cli.js",
     "lint": "pnpm eslint",
     "lint:fix": "pnpm eslint --fix",
     "format": "pnpm prettier . --check",
     "format:fix": "pnpm prettier . --write"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "keywords": [
+    "Github",
+    "roadmap",
+    "Gantt",
+    "chart",
+    "xlsx",
+    "tsv",
+    "csv",
+    "Excel"
+  ],
+  "author": "Ben Wolf",
+  "license": "MIT",
   "dependencies": {
     "commander": "^13.1.0",
     "csv-parser": "^3.2.0",
