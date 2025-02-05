@@ -12,7 +12,7 @@ export const statusProgress: Record<string, number> = {
 export function addRepoAndTaskRows(
   worksheet: Worksheet,
   tasks: Task[],
-  endTimeline: number
+  endTimeline: number,
 ) {
   let rowIndex = LAYOUT.DETAILS.ROWS.HEADER + 1;
 
@@ -47,7 +47,7 @@ export function addRepoAndTaskRows(
       rowIndex,
       LAYOUT.DETAILS.COL,
       rowIndex,
-      LAYOUT.TIMELINE.COL - 1
+      LAYOUT.TIMELINE.COL - 1,
     );
     repoRow.height = 20;
 

@@ -4,7 +4,7 @@ import { LAYOUT } from "../layout";
 
 export function applyConditionalFormatting(
   worksheet: Worksheet,
-  endTimeline: number
+  endTimeline: number,
 ): void {
   for (let i = LAYOUT.TIMELINE.COL; i < endTimeline; i++) {
     const colLetter = worksheet.getColumn(i).letter;

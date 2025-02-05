@@ -9,7 +9,7 @@ export async function parseTasks(inputPath: string): Promise<Task[]> {
     fs.createReadStream(inputPath)
       .pipe(csv({ separator: "\t" }))
       .on("data", (row) => {
-        const match = row.URL?.match(/github.com\/([^\/]+\/[^\/]+)/);
+        const match = row.URL?.match(/github.com\/([^/]+\/[^/]+)/);
         const repo = match ? match[1] : "Unknown";
         tasks.push({
           title: row.Title || "",

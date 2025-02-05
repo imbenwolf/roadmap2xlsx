@@ -16,7 +16,7 @@ export function setupHeader(worksheet: Worksheet, tasks: Task[]): void {
     LAYOUT.DETAILS.ROWS.TITLE,
     LAYOUT.DETAILS.COL,
     LAYOUT.DETAILS.ROWS.TITLE,
-    LAYOUT.TIMELINE.COL - 1
+    LAYOUT.TIMELINE.COL - 1,
   );
   const titleCell = titleRow.getCell(LAYOUT.DETAILS.COL);
   titleCell.value = "PROJECT TITLE";
@@ -24,7 +24,7 @@ export function setupHeader(worksheet: Worksheet, tasks: Task[]): void {
 
   const companyCell = worksheet.getCell(
     LAYOUT.DETAILS.ROWS.COMPANY,
-    LAYOUT.DETAILS.COL
+    LAYOUT.DETAILS.COL,
   );
   companyCell.value = "COMPANY NAME";
   companyCell.font = subtitleFont;
@@ -32,12 +32,12 @@ export function setupHeader(worksheet: Worksheet, tasks: Task[]): void {
     LAYOUT.DETAILS.ROWS.COMPANY,
     LAYOUT.DETAILS.COL,
     LAYOUT.DETAILS.ROWS.COMPANY,
-    LAYOUT.DETAILS.COL + 1
+    LAYOUT.DETAILS.COL + 1,
   );
 
   const leadCell = worksheet.getCell(
     LAYOUT.DETAILS.ROWS.LEAD,
-    LAYOUT.DETAILS.COL
+    LAYOUT.DETAILS.COL,
   );
   leadCell.value = "PROJECT LEAD";
   leadCell.font = subtitleFont;
@@ -45,26 +45,26 @@ export function setupHeader(worksheet: Worksheet, tasks: Task[]): void {
     LAYOUT.DETAILS.ROWS.LEAD,
     LAYOUT.DETAILS.COL,
     LAYOUT.DETAILS.ROWS.LEAD,
-    LAYOUT.DETAILS.COL + 1
+    LAYOUT.DETAILS.COL + 1,
   );
 
   // Sort tasks to get project start/end
   const sorted = [...tasks].sort(
-    (a, b) => a.startDate.getTime() - b.startDate.getTime()
+    (a, b) => a.startDate.getTime() - b.startDate.getTime(),
   );
   const projectStart = sorted[0]?.startDate || new Date();
   const projectEnd = sorted[sorted.length - 1]?.endDate || new Date();
 
   const projectStartTitle = worksheet.getCell(
     LAYOUT.DETAILS.ROWS.START_DATE,
-    LAYOUT.TIMELINE.COL - 2
+    LAYOUT.TIMELINE.COL - 2,
   );
   projectStartTitle.value = "Project Start:";
   projectStartTitle.font = projectDetailsFont;
 
   const projectStartDate = worksheet.getCell(
     LAYOUT.DETAILS.ROWS.START_DATE,
-    LAYOUT.TIMELINE.COL - 1
+    LAYOUT.TIMELINE.COL - 1,
   );
   projectStartDate.value = projectStart;
   projectStartDate.font = projectDetailsFont;
@@ -72,14 +72,14 @@ export function setupHeader(worksheet: Worksheet, tasks: Task[]): void {
 
   const projectEndTitle = worksheet.getCell(
     LAYOUT.DETAILS.ROWS.END_DATE,
-    LAYOUT.TIMELINE.COL - 2
+    LAYOUT.TIMELINE.COL - 2,
   );
   projectEndTitle.value = "Project End:";
   projectEndTitle.font = projectDetailsFont;
 
   const projectEndDate = worksheet.getCell(
     LAYOUT.DETAILS.ROWS.END_DATE,
-    LAYOUT.TIMELINE.COL - 1
+    LAYOUT.TIMELINE.COL - 1,
   );
   projectEndDate.value = projectEnd;
   projectEndDate.font = projectDetailsFont;

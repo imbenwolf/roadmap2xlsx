@@ -9,7 +9,7 @@ import { applyConditionalFormatting } from "./formatting";
 
 export async function generateRoadmap(
   inputPath: string,
-  outputPath: string
+  outputPath: string,
 ): Promise<void> {
   const tasks: Task[] = await parseTasks(inputPath);
 

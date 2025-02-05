@@ -5,7 +5,7 @@ import { LAYOUT } from "../layout";
 
 export function buildTimeline(worksheet: Worksheet, tasks: Task[]) {
   const sorted = [...tasks].sort(
-    (a, b) => a.startDate.getTime() - b.startDate.getTime()
+    (a, b) => a.startDate.getTime() - b.startDate.getTime(),
   );
   const projectStart = sorted[0]?.startDate || new Date();
   const projectEnd = sorted[sorted.length - 1]?.endDate || new Date();
@@ -58,7 +58,7 @@ export function buildTimeline(worksheet: Worksheet, tasks: Task[]) {
       LAYOUT.TIMELINE.ROWS.WEEK,
       i,
       LAYOUT.TIMELINE.ROWS.WEEK,
-      Math.min(i + 6, END_TIMELINE - 1)
+      Math.min(i + 6, END_TIMELINE - 1),
     );
     const weekCell = worksheet.getCell(LAYOUT.TIMELINE.ROWS.WEEK, i);
     weekCell.value = worksheet.getCell(LAYOUT.TIMELINE.ROWS.DATE, i).value;
