@@ -11,6 +11,7 @@
     "lint:fix": "pnpm eslint --fix",
     "format": "pnpm prettier . --check",
     "format:fix": "pnpm prettier . --write",
+    "test": "pnpm jest",
     "prepare": "pnpx husky"
   },
   "keywords": [
@@ -32,11 +33,14 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.19.0",
+    "@jest/globals": "^29.7.0",
     "@types/node": "^22.12.0",
     "eslint": "^9.19.0",
     "eslint-config-prettier": "^10.0.1",
     "globals": "^15.14.0",
+    "jest": "^29.7.0",
     "prettier": "3.4.2",
+    "ts-jest": "^29.2.5",
     "ts-node": "^10.9.2",
     "typescript": "^5.7.3",
     "typescript-eslint": "^8.23.0"
