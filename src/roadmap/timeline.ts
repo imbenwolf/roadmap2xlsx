@@ -1,77 +1,72 @@
-import { Worksheet } from "exceljs";
-import { Task } from "../types";
-import { borders, dateNumberFill, smallFont, weekdayFill } from "../styles";
-import { LAYOUT } from "../layout";
+import { Style, Worksheet } from "exceljs";
+import { LAYOUT } from "../config/layout";
+import { alignment, borders, fill, font } from "../config/styles";
 
-export function buildTimeline(worksheet: Worksheet, tasks: Task[]) {
-  const sorted = [...tasks].sort(
-    (a, b) => a.startDate.getTime() - b.startDate.getTime(),
-  );
-  const projectStart = sorted[0]?.startDate || new Date();
-  const projectEnd = sorted[sorted.length - 1]?.endDate || new Date();
+const weekStyle: Partial<Style> = {
+  font: font.small,
+  fill: fill.light,
+  numFmt: "mmmm dd, yyyy",
+  alignment: alignment.center,
+  border: {
+    top: borders.dark,
+    left: borders.dark,
+    right: borders.dark,
+    bottom: borders.dark,
+  },
+};
 
-  let totalDays =
-    Math.ceil((+projectEnd - +projectStart) / (1000 * 60 * 60 * 24)) + 1;
-  if (totalDays % 7 !== 0) {
-    totalDays += 7 - (totalDays % 7);
-  }
-  const END_TIMELINE = LAYOUT.TIMELINE.COL + totalDays;
+const dateStyle: Partial<Style> = {
+  font: font.small,
+  fill: fill.dark,
+  numFmt: "d",
+  alignment: alignment.center,
+  border: {
+    top: borders.dark,
+    bottom: borders.dark,
+    left: borders.dark,
+    right: borders.dark,
+  },
+};
 
-  for (let i = LAYOUT.TIMELINE.COL; i < END_TIMELINE; i++) {
-    const dateCell = worksheet.getCell(LAYOUT.TIMELINE.ROWS.DATE, i);
-    if (i === LAYOUT.TIMELINE.COL) {
-      dateCell.value = projectStart;
-    } else {
-      const prevCol = worksheet.getColumn(i - 1).letter;
-      dateCell.value = { formula: `${prevCol}${LAYOUT.TIMELINE.ROWS.DATE}+1` };
-    }
+export function buildTimeline(worksheet: Worksheet, totalDays: number): number {
+  const { timeline } = LAYOUT;
+  const END_TIMELINE = timeline.col + totalDays;
 
-    dateCell.numFmt = "d";
-    dateCell.fill = dateNumberFill;
-    dateCell.alignment = { horizontal: "center", vertical: "middle" };
-    dateCell.border = {
-      top: borders.dark,
-      left: borders.dark,
-      right: borders.dark,
-      bottom: borders.dark,
+  for (let i = timeline.col; i < END_TIMELINE; i++) {
+    // Set the daily date cell.
+    const dateCell = worksheet.getCell(timeline.rows.date, i);
+    dateCell.style = dateStyle;
+    dateCell.value = {
+      formula:
+        i === timeline.col
+          ? worksheet.getCell(LAYOUT.details.rows.startDate, timeline.col - 1)
+              .$col$row
+          : `${worksheet.getColumn(i - 1).letter}${timeline.rows.date}+1`,
     };
 
-    const weekdayCell = worksheet.getCell(LAYOUT.TIMELINE.ROWS.DAY, i);
+    // Set the daily weekday cell.
+    const weekdayCell = worksheet.getCell(timeline.rows.day, i);
+    weekdayCell.style = weekStyle;
+    // Use the letter of the current column for the formula.
     weekdayCell.value = {
-      formula: `=LEFT(TEXT(${weekdayCell.col}${LAYOUT.TIMELINE.ROWS.DATE},"ddd"),1)`,
-    };
-    weekdayCell.fill = weekdayFill;
-    weekdayCell.font = smallFont;
-    weekdayCell.alignment = { horizontal: "center", vertical: "middle" };
-    weekdayCell.border = {
-      top: borders.dark,
-      left: borders.dark,
-      right: borders.dark,
-      bottom: borders.dark,
+      formula: `=LEFT(TEXT(${worksheet.getColumn(i).letter}${timeline.rows.date},"ddd"),1)`,
     };
 
+    // Set the width for the column.
     worksheet.getColumn(i).width = 3;
-  }
 
-  for (let i = LAYOUT.TIMELINE.COL; i < END_TIMELINE; i += 7) {
-    worksheet.mergeCells(
-      LAYOUT.TIMELINE.ROWS.WEEK,
-      i,
-      LAYOUT.TIMELINE.ROWS.WEEK,
-      Math.min(i + 6, END_TIMELINE - 1),
-    );
-    const weekCell = worksheet.getCell(LAYOUT.TIMELINE.ROWS.WEEK, i);
-    weekCell.value = worksheet.getCell(LAYOUT.TIMELINE.ROWS.DATE, i).value;
-    weekCell.numFmt = "mmmm dd, yyyy";
-    weekCell.fill = weekdayFill;
-    weekCell.font = smallFont;
-    weekCell.alignment = { horizontal: "center", vertical: "middle" };
-    weekCell.border = {
-      top: borders.dark,
-      left: borders.dark,
-      right: borders.dark,
-      bottom: borders.dark,
-    };
+    // If this column marks the start of a week, set the week cell and merge cells.
+    if ((i - timeline.col) % 7 === 0) {
+      const weekCell = worksheet.getCell(timeline.rows.week, i);
+      weekCell.style = weekStyle;
+      weekCell.value = { formula: `=${dateCell.$col$row}` };
+      worksheet.mergeCells(
+        timeline.rows.week,
+        i,
+        timeline.rows.week,
+        Math.min(i + 6, END_TIMELINE - 1),
+      );
+    }
   }
 
   return END_TIMELINE;

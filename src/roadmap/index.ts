@@ -1,28 +1,26 @@
 import { Workbook } from "exceljs";
-import { parseTasks } from "../parse";
-import { Task } from "../types";
+import { Project } from "../types";
 
 import { setupHeader } from "./header";
 import { buildTimeline } from "./timeline";
-import { addRepoAndTaskRows, addLastRow } from "./tasks";
+import { addRows } from "./rows";
 import { applyConditionalFormatting } from "./formatting";
 
-export async function generateRoadmap(
-  inputPath: string,
+export const generateRoadmap = async (
+  project: Project,
   outputPath: string,
-): Promise<void> {
-  const tasks: Task[] = await parseTasks(inputPath);
+): Promise<void> => {
+  const { startDate, endDate, totalDays, repos } = project;
 
   const workbook = new Workbook();
   const worksheet = workbook.addWorksheet("Gantt", {
     views: [{ showGridLines: false }],
   });
 
-  setupHeader(worksheet, tasks);
-  const endTimeline = buildTimeline(worksheet, tasks);
-  addRepoAndTaskRows(worksheet, tasks, endTimeline);
-  addLastRow(worksheet, endTimeline);
-  applyConditionalFormatting(worksheet, endTimeline);
+  setupHeader(worksheet, startDate, endDate);
+  buildTimeline(worksheet, totalDays);
+  addRows(worksheet, repos, totalDays);
+  applyConditionalFormatting(worksheet, totalDays);
 
   await workbook.xlsx.writeFile(outputPath);
-}
+};

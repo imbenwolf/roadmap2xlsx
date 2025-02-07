@@ -5,5 +5,16 @@ export interface Task {
   status: string;
   startDate: Date;
   endDate: Date;
-  repo: string;
+}
+
+export interface Repo {
+  name: string;
+  tasks: Task[];
+}
+
+export interface Project {
+  startDate: Date;
+  endDate: Date;
+  totalDays: number;
+  repos: Repo[];
 }
