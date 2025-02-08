@@ -9,5 +9,6 @@
     "esModuleInterop": true,
     "moduleResolution": "node"
   },
-  "exclude": ["**/*.test.ts"]
+  "exclude": ["**/*.test.ts"],
+  "include": ["src/**/*.ts"]
 }
