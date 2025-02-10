@@ -1,7 +1,7 @@
 # 📌 Roadmap2XLSX <!-- omit in toc -->
 
 [![npm version](https://img.shields.io/npm/v/roadmap2xlsx.svg)](https://www.npmjs.com/package/roadmap2xlsx)
-[![Build Status](https://github.com/imbenwolf/roadmap2xlsx/actions/workflows/ci.yaml/badge.svg)](https://github.com/imbenwolf/roadmap2xlsx/actions/workflows/ci.yaml)
+[![Build Status](https://github.com/imbenwolf/roadmap2xlsx/actions/workflows/ci-cd.yaml/badge.svg)](https://github.com/imbenwolf/roadmap2xlsx/actions/workflows/ci-cd.yaml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Downloads](https://img.shields.io/npm/dm/roadmap2xlsx.svg)](https://www.npmjs.com/package/roadmap2xlsx)
 
@@ -31,7 +31,7 @@ Roadmap2XLSX converts your GitHub project roadmap (in TSV format) into a beautif
 
 ## 📥 How to Export Your GitHub Roadmap Data
 
-Refer to GitHub's guide on [Exporting Your Projects Data](https://docs.github.com/en/issues/planning-and-tracking-with-projects/managing-your-projects/exporting-your-projects-data).
+Refer to GitHub's guide on [Exporting Your Projects Data](https://docs.github.com/en/issues/planning-and-tracking-with-projects/managing-your-project/exporting-your-projects-data).
 
 ## 📦 Installation & Usage
 

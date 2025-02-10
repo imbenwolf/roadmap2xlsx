@@ -2,6 +2,18 @@
   "name": "roadmap2xlsx",
   "version": "0.1.0",
   "description": "Creates a Gantt chart .xlsx from a Github project roadmap .tsv",
+  "keywords": [
+    "Github",
+    "roadmap",
+    "Gantt",
+    "chart",
+    "xlsx",
+    "tsv",
+    "Excel"
+  ],
+  "author": "Ben Wolf",
+  "license": "MIT",
+  "repository": "https://github.com/imbenwolf/roadmap2xlsx.git",
   "main": "dist/cli.js",
   "bin": {
     "roadmap2xlsx": "dist/cli.js"
@@ -18,18 +30,6 @@
     "prepare": "pnpx husky",
     "prepublishOnly": "pnpm build"
   },
-  "keywords": [
-    "Github",
-    "roadmap",
-    "Gantt",
-    "chart",
-    "xlsx",
-    "tsv",
-    "csv",
-    "Excel"
-  ],
-  "author": "Ben Wolf",
-  "license": "MIT",
   "dependencies": {
     "commander": "^13.1.0",
     "csv-parser": "^3.2.0",
