@@ -17,8 +17,8 @@ export async function parseTsv(inputPath: string): Promise<Project> {
           url: row.URL || "",
           assignee: row.Assignees || "",
           status: row.Status || "Todo",
-          startDate: new Date(row["Start Date"].split("T")[0]),
-          endDate: new Date(row["Target Date"].split("T")[0]),
+          startDate: parseDate(row["Start Date"]),
+          endDate: parseDate(row["Target Date"]),
         };
 
         if (!repoMap[repo]) {
@@ -61,4 +61,32 @@ export async function parseTsv(inputPath: string): Promise<Project> {
   }
 
   return { startDate, endDate, totalDays, repos };
+}
+
+function parseDate(dateString: string): Date {
+  const [month, dayStr, yearStr] = dateString.replace(",", "").split(" ");
+  const day = parseInt(dayStr, 10);
+  const year = parseInt(yearStr, 10);
+
+  const monthMap: Record<string, number> = {
+    Jan: 0,
+    Feb: 1,
+    Mar: 2,
+    Apr: 3,
+    May: 4,
+    Jun: 5,
+    Jul: 6,
+    Aug: 7,
+    Sep: 8,
+    Oct: 9,
+    Nov: 10,
+    Dec: 11,
+  };
+
+  const monthIndex = monthMap[month];
+  if (monthIndex === undefined) {
+    throw new Error(`Invalid month: ${month}`);
+  }
+
+  return new Date(Date.UTC(year, monthIndex, day));
 }
